@@ -205,8 +205,9 @@
                     </div>
                 </div>
                 <div class="container">
-                    <div class="card col-12 ml-3 mb-2 d-none" id="pdffile">
-                        <div class="card-header">
+                    <div class="card col-12 ml-3 mb-2 d-none bg-dark" id="pdffile">
+                        <div id="pspdfkit" style="height: 100vh"></div>
+                        {{-- <div class="card-header">
                             <div class="top-bar text-center">
                                 <button class="btn pagebtn" id="prev-page">
                                     <i class="fas fa-arrow-circle-left"></i> Prev Page
@@ -218,10 +219,10 @@
                                     Page <span id="page-num"></span> of <span id="page-count"></span>
                                 </span>
                             </div>
-                        </div>
-                        <div class="card-body bg-dark text-center">
+                        </div> --}}
+                        {{-- <div class="card-body bg-dark text-center">
                             <canvas id="pdf-render" height="1293" width="1250"></canvas>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <section class="space-bottom-3">
@@ -296,7 +297,8 @@
 
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    {{-- <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script> --}}
+    <script src="{{ asset('modern/pspdfkit.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#downloadBtn').click(function() {
@@ -338,111 +340,131 @@
                 lang = $("input[name='lang']:checked").val();
                 file = $("input[name='lang']:checked").closest('.dfile').find("input[name='file']").val();
 
-                if ($("input[name='lang']").is(':checked')) {
+                $('#pdffile').removeClass('d-none');
 
-                    $('#pdffile').removeClass('d-none');
+                PSPDFKit.load({
+                        container: "#pspdfkit",
+                        document: file, // Add the path to your document here.
+                        theme: PSPDFKit.Theme.AUTO
+                    })
+                    .then(function(instance) {
+                        const items = instance.toolbarItems;
+                        // Hide the toolbar item with the `id` "ink"
+                        // by removing it from the array of items.
+                        instance.setToolbarItems(items.filter((item) => item.type !== "ink" && item.type !== "export-pdf" && item.type !== "print" && item.type !== "document-editor" && item.type !== "document-crop" && item.type !== "ink-eraser" && item.type !== "signature" && item.type !== "annotate" && item.type !== "text"
+                        && item.type !== "pan" && item.type !== "image" && item.type !== "stamp" && item.type !== "note" && item.type !== "line" && item.type !== "link" && item.type !== "arrow"
+                        && item.type !== "rectangle" && item.type !== "ellipse" && item.type !== "polygon" && item.type !== "cloudy-polygon" && item.type !== "polyline" && item.type !== "highlighter" && item.type !== "text-highlighter"
+                        && item.type !== "sidebar-document-outline" && item.type !== "sidebar-annotations" && item.type !== "sidebar-bookmarks" && item.type !== "spacer" && item.type !== "debug"));
+                    })
+                    .catch(function(error) {
+                        alert(error.message);
+                    });;
 
-                    const url = file;
+                // if ($("input[name='lang']").is(':checked')) {
 
-                    let pdfDoc = null,
-                        pageNum = 1,
-                        pageIsRendering = false,
-                        pageNumIsPending = null;
+                //     $('#pdffile').removeClass('d-none');
 
-                    const scale = 1.5,
-                        canvas = document.querySelector('#pdf-render'),
-                        ctx = canvas.getContext('2d');
+                //     const url = file;
 
-                    // Render the page
-                    const renderPage = num => {
-                        pageIsRendering = true;
+                //     let pdfDoc = null,
+                //         pageNum = 1,
+                //         pageIsRendering = false,
+                //         pageNumIsPending = null;
 
-                        // Get page
-                        pdfDoc.getPage(num).then(page => {
-                            // Set scale
-                            const viewport = page.getViewport({
-                                scale
-                            });
-                            canvas.height = viewport.height;
-                            canvas.width = viewport.width;
+                //     const scale = 1.5,
+                //         canvas = document.querySelector('#pdf-render'),
+                //         ctx = canvas.getContext('2d');
 
-                            const renderCtx = {
-                                canvasContext: ctx,
-                                viewport
-                            };
+                //     // Render the page
+                //     const renderPage = num => {
+                //         pageIsRendering = true;
 
-                            page.render(renderCtx).promise.then(() => {
-                                pageIsRendering = false;
+                //         // Get page
+                //         pdfDoc.getPage(num).then(page => {
+                //             // Set scale
+                //             const viewport = page.getViewport({
+                //                 scale
+                //             });
+                //             canvas.height = viewport.height;
+                //             canvas.width = viewport.width;
 
-                                if (pageNumIsPending !== null) {
-                                    renderPage(pageNumIsPending);
-                                    pageNumIsPending = null;
-                                }
-                            });
+                //             const renderCtx = {
+                //                 canvasContext: ctx,
+                //                 viewport
+                //             };
 
-                            // Output current page
-                            document.querySelector('#page-num').textContent = num;
-                        });
-                    };
+                //             page.render(renderCtx).promise.then(() => {
+                //                 pageIsRendering = false;
 
-                    // Check for pages rendering
-                    const queueRenderPage = num => {
-                        if (pageIsRendering) {
-                            pageNumIsPending = num;
-                        } else {
-                            renderPage(num);
-                        }
-                    };
+                //                 if (pageNumIsPending !== null) {
+                //                     renderPage(pageNumIsPending);
+                //                     pageNumIsPending = null;
+                //                 }
+                //             });
 
-                    // Show Prev Page
-                    const showPrevPage = () => {
-                        if (pageNum <= 1) {
-                            return;
-                        }
-                        pageNum--;
-                        queueRenderPage(pageNum);
-                    };
+                //             // Output current page
+                //             document.querySelector('#page-num').textContent = num;
+                //         });
+                //     };
 
-                    // Show Next Page
-                    const showNextPage = () => {
-                        if (pageNum >= pdfDoc.numPages) {
-                            return;
-                        }
-                        pageNum++;
-                        queueRenderPage(pageNum);
-                    };
+                //     // Check for pages rendering
+                //     const queueRenderPage = num => {
+                //         if (pageIsRendering) {
+                //             pageNumIsPending = num;
+                //         } else {
+                //             renderPage(num);
+                //         }
+                //     };
 
-                    // Get Document
-                    pdfjsLib
-                        .getDocument(url)
-                        .promise.then(pdfDoc_ => {
-                            pdfDoc = pdfDoc_;
+                //     // Show Prev Page
+                //     const showPrevPage = () => {
+                //         if (pageNum <= 1) {
+                //             return;
+                //         }
+                //         pageNum--;
+                //         queueRenderPage(pageNum);
+                //     };
 
-                            document.querySelector('#page-count').textContent = pdfDoc.numPages;
+                //     // Show Next Page
+                //     const showNextPage = () => {
+                //         if (pageNum >= pdfDoc.numPages) {
+                //             return;
+                //         }
+                //         pageNum++;
+                //         queueRenderPage(pageNum);
+                //     };
 
-                            renderPage(pageNum);
-                        })
-                        .catch(err => {
-                            // Display error
-                            const div = document.createElement('div');
-                            div.className = 'error';
-                            div.appendChild(document.createTextNode(err.message));
-                            document.querySelector('body').insertBefore(div, canvas);
-                            // Remove top bar
-                            document.querySelector('.top-bar').style.display = 'none';
-                        });
+                //     // Get Document
+                //     pdfjsLib
+                //         .getDocument(url)
+                //         .promise.then(pdfDoc_ => {
+                //             pdfDoc = pdfDoc_;
 
-                    // Button Events
-                    document.querySelector('#prev-page').addEventListener('click', showPrevPage);
-                    document.querySelector('#next-page').addEventListener('click', showNextPage);
-                } else {
-                    Swal.fire({
-                        title: "Error",
-                        text: "Please Select Language First",
-                        icon: 'error',
-                        confirmButtonText: 'Done'
-                    });
-                }
+                //             document.querySelector('#page-count').textContent = pdfDoc.numPages;
+
+                //             renderPage(pageNum);
+                //         })
+                //         .catch(err => {
+                //             // Display error
+                //             const div = document.createElement('div');
+                //             div.className = 'error';
+                //             div.appendChild(document.createTextNode(err.message));
+                //             document.querySelector('body').insertBefore(div, canvas);
+                //             // Remove top bar
+                //             document.querySelector('.top-bar').style.display = 'none';
+                //         });
+
+                //     // Button Events
+                //     document.querySelector('#prev-page').addEventListener('click', showPrevPage);
+                //     document.querySelector('#next-page').addEventListener('click', showNextPage);
+                // } else {
+                //     Swal.fire({
+                //         title: "Error",
+                //         text: "Please Select Language First",
+                //         icon: 'error',
+                //         confirmButtonText: 'Done'
+                //     });
+                // }
             });
 
             $('#listenBtn').click(function() {
