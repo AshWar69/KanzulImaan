@@ -8,7 +8,7 @@
                 <strong class="card-title">Edit Product</strong>
             </div>
             <div class="card-body">
-                <form class="needs-validation" novalidate action="{{route('editProduct')}}" method="POST">
+                <form class="needs-validation" novalidate action="{{route('admin.editProduct')}}" method="POST">
                     @csrf
                     <input type="hidden" name="id" value="{{$data->id}}">
                     <div class="form-row">

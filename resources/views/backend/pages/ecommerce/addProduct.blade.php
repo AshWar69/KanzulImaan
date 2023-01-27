@@ -8,7 +8,7 @@
                 <strong class="card-title">Add Product</strong>
             </div>
             <div class="card-body">
-                <form class="needs-validation" novalidate action="{{route('saveProduct')}}" method="POST" enctype="multipart/form-data">
+                <form class="needs-validation" novalidate action="{{route('admin.saveProduct')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-row">
                         <div class="col-md-6 mb-3">

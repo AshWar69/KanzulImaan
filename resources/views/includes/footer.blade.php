@@ -64,31 +64,31 @@
                                 @foreach ($social as $social_data)
                                     @if ($social_data->platform == 'Instagram')
                                         <li class="btn pl-0">
-                                            <a class="link-black-100" href="{{$social_data->link}}">
+                                            <a class="link-black-100" href="{{ $social_data->link }}">
                                                 <span class="fab fa-instagram"></span>
                                             </a>
                                         </li>
                                     @elseif($social_data->platform == 'Facebook')
                                         <li class="btn">
-                                            <a class="link-black-100" href="{{$social_data->link}}">
+                                            <a class="link-black-100" href="{{ $social_data->link }}">
                                                 <span class="fab fa-facebook-f"></span>
                                             </a>
                                         </li>
                                     @elseif($social_data->platform == 'Youtube')
                                         <li class="btn">
-                                            <a class="link-black-100" href="{{$social_data->link}}">
+                                            <a class="link-black-100" href="{{ $social_data->link }}">
                                                 <span class="fab fa-youtube"></span>
                                             </a>
                                         </li>
                                     @elseif($social_data->platform == 'Twitter')
                                         <li class="btn">
-                                            <a class="link-black-100" href="{{$social_data->link}}">
+                                            <a class="link-black-100" href="{{ $social_data->link }}">
                                                 <span class="fab fa-twitter"></span>
                                             </a>
                                         </li>
                                     @elseif($social_data->platform == 'LinkedIn')
                                         <li class="btn">
-                                            <a class="link-black-100" href="{{$social_data->link}}">
+                                            <a class="link-black-100" href="{{ $social_data->link }}">
                                                 <span class="fab fa-linkedin"></span>
                                             </a>
                                         </li>
@@ -114,7 +114,7 @@
                             </li>
                             <li class="pt-2">
                                 <a class="widgets-hover transition-3d-hover font-size-2 link-black-100"
-                                    href="{{ URL::to('Dashboard') }}">Admin</a>
+                                    href="{{ URL::to('admin/Dashboard') }}">Admin</a>
                             </li>
                         </ul>
                     </div>
@@ -219,6 +219,14 @@
 
 
 <script src="{{ asset('front/vendor/jquery/dist/jquery.min.js') }}"></script>
+{{-- <script>
+    // Loaded via <script> tag, create shortcut to access PDF.js exports.
+    var pdfjsLib = window['pdfjs-dist/build/pdf'];
+    let pdfViewer = window['pdfjs-dist/web/pdf_viewer.js'];
+
+    // The workerSrc property shall be specified.
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+</script> --}}
 <script src="{{ asset('front/vendor/jquery-migrate/dist/jquery-migrate.min.js') }}"></script>
 <script src="{{ asset('front/vendor/popper.js/dist/umd/popper.min.js') }}"></script>
 <script src="{{ asset('front/vendor/bootstrap/bootstrap.min.js') }}"></script>

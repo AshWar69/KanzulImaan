@@ -20,6 +20,8 @@
         href="{{ asset('front/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}">
 
     <link rel="stylesheet" href="{{ asset('front/css/theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/pdfjs-viewer.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/pdftoolbar.css') }}">
 </head>
 
 <body>

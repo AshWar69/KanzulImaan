@@ -4,11 +4,11 @@
         <!-- Small table -->
         <div class="col-md-12">
             <div class="card shadow">
-                <div class="card-body">
+                <div class="card-body" style="overflow-x: scroll">
                     <div class="toolbar row mb-3">
                         <div class="col ml-auto">
                             <div class="dropdown">
-                                <a href="{{ URL::to('AddProduct') }}" class="btn btn-primary ml-3" type="button">Add more
+                                <a href="{{ URL::to('admin/AddProduct') }}" class="btn btn-primary ml-3" type="button">Add more
                                     +</a>
                                 {{-- <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
                           <div class="dropdown-menu" aria-labelledby="actionMenuButton">
@@ -47,7 +47,7 @@
                                             <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="edit/{{ $data->id }}/product">Edit</a>
+                                            <a class="dropdown-item" href="{{URL::to('admin/edit/'.$data->id.'/product')}}">Edit</a>
                                             <a class="dropdown-item del" id='{{ $data->id }}' href="#">Remove</a>
                                         </div>
                                     </td>

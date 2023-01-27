@@ -260,7 +260,7 @@ class EcommController extends Controller
                 }
             }
         }
-        return redirect('ProductsShowcase');
+        return redirect('admin/ProductsShowcase');
     }
 
     public function editProduct($id)
@@ -282,7 +282,7 @@ class EcommController extends Controller
         $prod->pages = $request->pages;
         $prod->publication = $request->publication;
         if($prod->save())
-            return redirect('ProductsShowcase');
+            return redirect('admin/ProductsShowcase');
         else
             return redirect()->back();
     }
@@ -318,7 +318,7 @@ class EcommController extends Controller
     public function OrderDetails($id)
     {
         $oid = Crypt::decrypt($id);
-        echo $oid;
+        //echo $oid;
         $orders = Order::where('id', $oid)->first();
         $user_details = UserDetail::where('user_id', $orders->user_id)->first();
 

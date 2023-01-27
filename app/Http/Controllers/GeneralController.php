@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Banner;
 use App\Models\Company;
 use App\Models\Social;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GeneralController extends Controller
 {
@@ -195,5 +197,17 @@ class GeneralController extends Controller
             echo "Deleted";
         } else
             echo "Error Occured";
+    }
+
+    public function Authenticate(Request $request)
+    {
+        $credential = $request->only('email','password');
+
+        if(Auth::guard('admin')->attempt($credential)){
+            $user = Admin::where('email',$request->email)->first();
+            Auth::guard('admin')->login($user);
+            return redirect()->route('admin.Dashboard');
+        }
+        return back()->with('status', 'The provided credentials do not match our records.');
     }
 }

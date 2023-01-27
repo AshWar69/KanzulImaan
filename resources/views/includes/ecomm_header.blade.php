@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 10 Nov 2022 15:56:16 GMT -->
-
 <head>
 
     <title>KanzulIman | Order Quran</title>
