@@ -646,7 +646,7 @@
             },
             success: function(response) {
                 if (response.type == 'success') {
-                    self.location = "{{ URL::to('Checkout') }}";
+                    self.location = "{{ URL::to('Kanzuliman/Checkout') }}";
                 } else if (response.type == 'error') {
                     Swal.fire({
                         title: response.type,
@@ -654,7 +654,7 @@
                         icon: response.type,
                         confirmButtonText: 'Done'
                     });
-                    self.location = "{{ URL::to('Checkout') }}";
+                    self.location = "{{ URL::to('Kanzuliman/Checkout') }}";
                 }
             }
         });

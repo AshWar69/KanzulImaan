@@ -19,21 +19,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontController::class, 'index']);
-Route::view('{slug}','pages.library.qr_read');
+//Route::view('{slug}','pages.library.qr_read');
 Route::get('books/name={slug}', [ LibraryController::class , 'showBook'])->name('books.name=');
 Route::post('read/book', [ LibraryController::class , 'readBook'])->name('read.book');
 Route::get('Kanzuliman/Bookslibrary', [LibraryController::class , 'index'])->name('Kanzuliman.Bookslibrary');
 
 Auth::routes();
 Route::middleware(['auth','ecomm'])->group(function(){
-    Route::get('QuranStore', [EcommController::class, 'showQuranStore']);
+    Route::get('Kanzuliman/QuranStore', [EcommController::class, 'showQuranStore']);
     Route::get('Product/id={id}', [EcommController::class, 'showSingleProduct']);
     Route::get('removeItem/{id}', [EcommController::class, 'removeCartItems']);
-    Route::get('ViewCart', [EcommController::class, 'viewCart']);
+    Route::get('Kanzuliman/ViewCart', [EcommController::class, 'viewCart']);
     Route::post('addtocart', [EcommController::class, 'AddToCart'])->name('addtocart');
     Route::post('AddCart', [EcommController::class, 'DirectAddcart'])->name('AddCart');
     Route::post('changeQuantity', [EcommController::class, 'changeQuantity'])->name('changeQuantity');
-    Route::get('Checkout', [EcommController::class, 'viewCheckout']);
+    Route::get('Kanzuliman/Checkout', [EcommController::class, 'viewCheckout']);
     Route::post('PlaceOrder', [EcommController::class, 'placeOrder'])->name('PlaceOrder');
     Route::get('OrderReceived/order_no={id}', [EcommController::class, 'orderReceived']);
 });

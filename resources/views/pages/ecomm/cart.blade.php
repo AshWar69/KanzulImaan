@@ -272,7 +272,7 @@
                     </div>
                 </div>
                 <div class="wc-proceed-to-checkout">
-                    <a href="{{ URL::to('Checkout') }}"
+                    <a href="{{ URL::to('Kanzuliman/Checkout') }}"
                         class="checkout-button button alt wc-forward btn btn-dark btn-block rounded-0 py-4">Proceed to
                         checkout</a>
                 </div>

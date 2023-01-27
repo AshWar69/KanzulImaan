@@ -20,7 +20,7 @@
                                                 class="hero__title-line-1 font-weight-regular d-block">{{ $ban->heading }}</span>
                                             {{-- <span class="hero__title-line-2 font-weight-bold d-block">February</span> --}}
                                         </h2>
-                                        <a href="{{ URL::to($ban->link) }}"
+                                        <a href="{{ URL::to('Kanzuliman/'.$ban->link) }}"
                                             class="btn btn-dark btn-wide rounded-0 hero__btn"
                                             data-scs-animation-in="fadeInLeft"
                                             data-scs-animation-delay="400">{{ $ban->link }}</a>
@@ -49,9 +49,9 @@
                         <div class="product-category__icon font-size-12 text-primary-indigo"><i
                                 class="glyph-icon fa fa-book-reader"></i></div>
                         <div class="product-category__body">
-                            <a href="{{ URL::to('QuranStore') }}" target="_blank" class="stretched-link text-dark">
+                            <a href="{{ URL::to('Kanzuliman/QuranStore') }}" target="_blank" class="stretched-link text-dark">
                                 <h2 class="text-truncate font-size-3">Quran Store</h2>
-                                <a href="{{ URL::to('QuranStore') }}" target="_blank" class="stretched-link text-dark">Shop
+                                <a href="{{ URL::to('Kanzuliman/QuranStore') }}" target="_blank" class="stretched-link text-dark">Shop
                                     Now</a>
                             </a>
                         </div>
