@@ -21,13 +21,14 @@ class LibraryController extends Controller
         $social = Social::get();
         $libraries = Library::paginate(25);
         $images = BookImage::get();
+        $categories = Category::where('parent_id',0)->get();
         $pimage = [];
         foreach($images as $image){
             if(!isset($pimage[$image->book_id]))
             $pimage[$image->book_id] = $image->image;
         }
 
-        return view('pages.library.library', compact('company','banners','social','libraries','pimage'));
+        return view('pages.library.library', compact('company','banners','social','libraries', 'categories','pimage'));
     }
 
     public function showBook($slug)
@@ -39,13 +40,14 @@ class LibraryController extends Controller
         $language = Language::where('book_id',$book->id)->get();
         $libraries = Library::get();
         $images = BookImage::get();
+        $categories = Category::where('parent_id',0)->get();
         $pimage = [];
         foreach($images as $image){
             if(!isset($pimage[$image->book_id]))
             $pimage[$image->book_id] = $image->image;
         }
 
-        return view('pages.library.single', compact('company','banners','social','libraries','pimage','book','language','images'));
+        return view('pages.library.single', compact('company','banners', 'categories','social','libraries','pimage','book','language','images'));
     }
 
     public function readBook(Request $request)
@@ -54,6 +56,7 @@ class LibraryController extends Controller
         $banners = Banner::inRandomOrder()->get();
         $social = Social::get();
         $libraries = Library::paginate(25);
+        $categories = Category::where('parent_id',0)->get();
         $images = BookImage::get();
         $pimage = [];
         foreach($images as $image){
@@ -62,7 +65,7 @@ class LibraryController extends Controller
         }
         $file = Language::find($request->id);
 
-        return view('pages.library.read', compact('company','banners','social','libraries','pimage','file'));
+        return view('pages.library.read', compact('company', 'categories','banners','social','libraries','pimage','file'));
     }
 
     // ========================== Backend Section =============================
@@ -182,18 +185,18 @@ class LibraryController extends Controller
 
             $num = 0; $n = 0;
             foreach($images as $img){
-                unlink(base_path() . '/public/back/images/library_images/' . $img->image);
+                unlink(base_path() . '/back/images/library_images/' . $img->image);
                 $img->delete();
                 $num++;
             }
             foreach($languages as $lang){
                 if($del->type == 'audio'){
-                    unlink(base_path() . '/public/back/files/library_audio/' . $lang->file);
+                    unlink(base_path() . '/back/files/library_audio/' . $lang->file);
                     $img->delete();
                     $n++;
                 }
                 else if($del->type == 'book'){
-                    unlink(base_path() . '/public/back/files/library_pdfs/' . $lang->file);
+                    unlink(base_path() . '/back/files/library_pdfs/' . $lang->file);
                     $img->delete();
                     $n++;
                 }
@@ -225,7 +228,7 @@ class LibraryController extends Controller
             $file = $request->file('file');
 
             $file_name = time() . rand(1, 999) . '.' . $file->getClientOriginalExtension();
-            $path = base_path('public/back/images/library_images/');
+            $path = base_path('back/images/library_images/');
             $file->move($path, $file_name);
             $lib->image = $file_name;
 
@@ -244,14 +247,14 @@ class LibraryController extends Controller
             if($request->type == 'audio'){
                 $file = $request->file('file');
                 $file_name = time() . rand(1, 999) . '.' . $file->getClientOriginalExtension();
-                $path = base_path('public/back/files/library_audio/');
+                $path = base_path('back/files/library_audio/');
                 $file->move($path, $file_name);
                 $lib->file = $file_name;
             }
             else if($request->type == 'book'){
                 $file = $request->file('file');
                 $file_name = time() . rand(1, 999) . '.' . $file->getClientOriginalExtension();
-                $path = base_path('public/back/files/library_pdfs/');
+                $path = base_path('back/files/library_pdfs/');
                 $file->move($path, $file_name);
                 $lib->file = $file_name;
             }
