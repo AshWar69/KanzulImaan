@@ -21489,7 +21489,7 @@ html:not(.no-transition) body,
 .zeynep ul > li.has-submenu > a,
 .zeynep .submenu-header > a {
     display: -ms-flexbox;
-    display: flex;
+    display: inline;
     -ms-flex-pack: justify;
     justify-content: space-between;
     -ms-flex-align: center;

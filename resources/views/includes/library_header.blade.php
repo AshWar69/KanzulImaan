@@ -27,6 +27,10 @@
         .dropdown-menu {
             min-width: fit-content !important;
         }
+        .ic{
+            margin-right: 50px !important;
+            float: right;
+        }
         /* .zeynep ul > li.has-submenu > a::after{
             content: "" !important;
         } */
@@ -736,7 +740,7 @@
                                                 <li><a href="{{URL::to('books/category='.$cat->id)}}">{{ $cat->category_name }}</a></li>
                                             @elseif($cat->childrenRecursive)
                                                 <li class="has-submenu">
-                                                    <a href="{{URL::to('books/category='.$cat->id)}}">{{ $cat->category_name }} <span class="ic text-dark" data-submenu="off-pages"><i class="fa fa-angle-right"></i></span></a>
+                                                    <a class="catLink" href="{{URL::to('books/category='.$cat->id)}}">{{ $cat->category_name }}</a> <span class="ic text-dark" data-submenu="off-pages"><i class="fa fa-angle-right"></i></span>
                                                     <div id="off-pages" class="submenu">
                                                         <div class="submenu-header" data-submenu-close="off-pages">
                                                             <a href="#">{{ $cat->category_name }}</a>
