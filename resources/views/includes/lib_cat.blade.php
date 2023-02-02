@@ -1,9 +1,9 @@
 @if ($childs->childrenRecursive->isEmpty())
-    <li><a href="#" class="dropdown-item link-black-100">{{ $childs->category_name }}</a>
+    <li><a href="{{URL::to('books/category='.$childs->id)}}" class="dropdown-item link-black-100">{{ $childs->category_name }}</a>
     </li>
 @elseif($childs->childrenRecursive)
     <li class="position-relative">
-        <a id="shopDropdownsubmenuoneInvoker" href="#"
+        <a id="shopDropdownsubmenuoneInvoker" href="{{URL::to('books/category='.$childs->id)}}"
             class="dropdown-toggle dropdown-item dropdown-item__sub-menu link-black-100 d-flex align-items-center justify-content-between"
             aria-haspopup="true" aria-expanded="false" data-unfold-event="hover"
             data-unfold-target="#shopDropdownsubMenu{{$level}}" data-unfold-type="css-animation" data-unfold-duration="200"

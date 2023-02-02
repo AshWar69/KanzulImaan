@@ -21505,9 +21505,9 @@ html:not(.no-transition) body,
     content: "\f053";
     margin-right: 0.75rem;
 }
-.zeynep ul > li.has-submenu > a::after {
+/* .zeynep ul > li.has-submenu > a::after {
     content: "\f054";
-}
+} */
 .zeynep .submenu {
     background-color: #fff;
     bottom: 0;

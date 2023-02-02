@@ -24,9 +24,12 @@
 
     <link rel="stylesheet" href="{{ asset('front/css/theme.css') }}">
     <style>
-        .dropdown-menu{
+        .dropdown-menu {
             min-width: fit-content !important;
         }
+        /* .zeynep ul > li.has-submenu > a::after{
+            content: "" !important;
+        } */
     </style>
 </head>
 
@@ -108,13 +111,15 @@
                         </a>
                     </div>
                     <div class="site-branding pr-md-4">
-                        <a href="{{URL::to('/')}}" class="d-block mb-1">
-                            <img class="img-fluid logo-img" src="{{asset('back/images/company_images/'.$company->image)}}" alt="{{$company->company_name}}" >
+                        <a href="{{ URL::to('/') }}" class="d-block mb-1">
+                            <img class="img-fluid logo-img"
+                                src="{{ asset('back/images/company_images/' . $company->image) }}"
+                                alt="{{ $company->company_name }}">
                         </a>
                     </div>
                     <div class="site-navigation mr-auto d-none d-xl-block">
                         <ul class="nav">
-                            <li class="nav-item"><a href="{{URL::to('Kanzuliman/Bookslibrary')}}"
+                            <li class="nav-item"><a href="{{ URL::to('Kanzuliman/Bookslibrary') }}"
                                     class="nav-link link-black-100 mx-4 px-0 py-5 font-weight-medium">Home</a>
                             </li>
                             <li class="nav-item dropdown">
@@ -132,30 +137,34 @@
                                     aria-labelledby="homeDropdownInvoker">
                                     @php $i=1; @endphp
                                     @foreach ($categories as $cat)
-                                        @if($cat->childrenRecursive->isEmpty())
-                                        <li><a href="#"
-                                                class="dropdown-item link-black-100">{{ $cat->category_name }}</a>
-                                        </li>
+                                        @if ($cat->childrenRecursive->isEmpty())
+                                            <li><a href="{{URL::to('books/category='.$cat->id)}}"
+                                                    class="dropdown-item link-black-100">{{ $cat->category_name }}</a>
+                                            </li>
                                         @elseif($cat->childrenRecursive)
-                                        <li class="position-relative">
-                                            <a id="shopDropdownsubmenuoneInvoker" href="#"
-                                                class="dropdown-toggle dropdown-item dropdown-item__sub-menu link-black-100 d-flex align-items-center justify-content-between"
-                                                aria-haspopup="true" aria-expanded="false" data-unfold-event="hover"
-                                                data-unfold-target="#shopDropdownsubMenu{{$i}}"
-                                                data-unfold-type="css-animation" data-unfold-duration="200"
-                                                data-unfold-delay="100" data-unfold-hide-on-scroll="true"
-                                                data-unfold-animation-in="slideInUp"
-                                                data-unfold-animation-out="fadeOut">{{ $cat->category_name }}
-                                            </a>
-                                            <ul id="shopDropdownsubMenu{{$i}}"
-                                                class="dropdown-unfold dropdown-menu dropdown-sub-menu font-size-2 rounded-0 border-gray-900"
-                                                aria-labelledby="shopDropdownsubmenuoneInvoker">
-                                                @php $level=1; @endphp
-                                                @foreach ($cat->childrenRecursive as $childs)
-                                                    @include('includes.lib_cat', ['childs' => $childs, 'level'=>$level])
-                                                @endforeach
-                                            </ul>
-                                        </li>
+                                            <li class="position-relative">
+                                                <a id="shopDropdownsubmenuoneInvoker" href="{{URL::to('books/category='.$cat->id)}}"
+                                                    class="dropdown-toggle dropdown-item dropdown-item__sub-menu link-black-100 d-flex align-items-center justify-content-between"
+                                                    aria-haspopup="true" aria-expanded="false"
+                                                    data-unfold-event="hover"
+                                                    data-unfold-target="#shopDropdownsubMenu{{ $i }}"
+                                                    data-unfold-type="css-animation" data-unfold-duration="200"
+                                                    data-unfold-delay="100" data-unfold-hide-on-scroll="true"
+                                                    data-unfold-animation-in="slideInUp"
+                                                    data-unfold-animation-out="fadeOut">{{ $cat->category_name }}
+                                                </a>
+                                                <ul id="shopDropdownsubMenu{{ $i }}"
+                                                    class="dropdown-unfold dropdown-menu dropdown-sub-menu font-size-2 rounded-0 border-gray-900"
+                                                    aria-labelledby="shopDropdownsubmenuoneInvoker">
+                                                    @php $level=1; @endphp
+                                                    @foreach ($cat->childrenRecursive as $childs)
+                                                        @include('includes.lib_cat', [
+                                                            'childs' => $childs,
+                                                            'level' => $level,
+                                                        ])
+                                                    @endforeach
+                                                </ul>
+                                            </li>
                                         @endif
                                         @php $i++; @endphp
                                     @endforeach
@@ -705,7 +714,7 @@
 
                             <header
                                 class="border-bottom px-4 px-md-5 py-4 d-flex align-items-center justify-content-between">
-                                <h2 class="font-size-3 mb-0">SHOP BY CATEGORY</h2>
+                                <h2 class="font-size-3 mb-0">BOOKS BY CATEGORY</h2>
 
                                 <div class="d-flex align-items-center">
                                     <button type="button" class="close ml-auto" aria-controls="sidebarContent2"
@@ -722,567 +731,28 @@
                             <div class="border-bottom">
                                 <div class="zeynep pt-4">
                                     <ul>
-                                        <li class="has-submenu">
-                                            <a href="#" data-submenu="off-pages">Pages</a>
-                                            <div id="off-pages" class="submenu">
-                                                <div class="submenu-header" data-submenu-close="off-pages">
-                                                    <a href="#">Pages</a>
-                                                </div>
-                                                <ul>
-                                                    <li class="has-submenu">
-                                                        <a href="#" data-submenu="off-home">Home Pages</a>
-                                                        <div id="off-home" class="submenu js-scrollbar">
-                                                            <div class="submenu-header" data-submenu-close="off-home">
-                                                                <a href="#">Home Pages</a>
-                                                            </div>
-                                                            <ul class="">
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/index.html">Home
-                                                                        v1</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/home-v2.html">Home
-                                                                        v2</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/home-v3.html">Home
-                                                                        v2</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/home-v3.html">Home
-                                                                        v3</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/home-v4.html">Home
-                                                                        v4</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/home-v5.html">Home
-                                                                        v5</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/home-v6.html">Home
-                                                                        v6</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/home-v7.html">Home
-                                                                        v7</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/home-v8.html">Home
-                                                                        v8</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/home-v9.html">Home
-                                                                        v9</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/home-v10.html">Home
-                                                                        v10</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/home-v11.html">Home
-                                                                        v11</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/home-v12.html">Home
-                                                                        v12</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/home/home-v13.html">Home
-                                                                        v13</a>
-                                                                </li>
-                                                            </ul>
+                                        @foreach ($categories as $cat)
+                                            @if ($cat->childrenRecursive->isEmpty())
+                                                <li><a href="{{URL::to('books/category='.$cat->id)}}">{{ $cat->category_name }}</a></li>
+                                            @elseif($cat->childrenRecursive)
+                                                <li class="has-submenu">
+                                                    <a href="{{URL::to('books/category='.$cat->id)}}">{{ $cat->category_name }} <span class="ic text-dark" data-submenu="off-pages"><i class="fa fa-angle-right"></i></span></a>
+                                                    <div id="off-pages" class="submenu">
+                                                        <div class="submenu-header" data-submenu-close="off-pages">
+                                                            <a href="#">{{ $cat->category_name }}</a>
                                                         </div>
-                                                    </li>
-                                                    <li class="has-submenu">
-                                                        <a href="#" data-submenu="off-single-product">Single
-                                                            Product</a>
-                                                        <div id="off-single-product" class="submenu js-scrollbar">
-                                                            <div class="submenu-header"
-                                                                data-submenu-close="off-single-product">
-                                                                <a href="#">Single Product</a>
-                                                            </div>
-                                                            <ul class="">
-                                                                <li>
-                                                                    <a href="single-product-v1.html">Single Product
-                                                                        v1</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="single-product-v2.html">Single Product
-                                                                        v2</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="single-product-v3.html">Single Product
-                                                                        v3</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="single-product-v4.html">Single Product
-                                                                        v4</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="single-product-v5.html">Single Product
-                                                                        v5</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="single-product-v6.html">Single Product
-                                                                        v6</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="single-product-v7.html">Single Product
-                                                                        v7</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                    <li class="has-submenu">
-                                                        <a href="#" data-submenu="off-shop-pages">Shop
-                                                            Pages</a>
-                                                        <div id="off-shop-pages" class="submenu js-scrollbar">
-                                                            <div class="submenu-header"
-                                                                data-submenu-close="off-shop-pages">
-                                                                <a href="#">Shop Pages</a>
-                                                            </div>
-                                                            <ul class="">
-                                                                <li>
-                                                                    <a href="cart.html">Shop cart</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="checkout.html">Shop checkout</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="my-account.html">Shop My Account</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="order-received.html">Shop Order
-                                                                        Received</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="order-tracking.html">Shop Order
-                                                                        Tracking</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="store-location.html">Shop Store
-                                                                        Location</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                    <li class="has-submenu">
-                                                        <a href="#" data-submenu="off-shop-list">Shop List</a>
-                                                        <div id="off-shop-list" class="submenu js-scrollbar">
-                                                            <div class="submenu-header"
-                                                                data-submenu-close="off-shop-list">
-                                                                <a href="#">Shop List</a>
-                                                            </div>
-                                                            <ul class="">
-                                                                <li>
-                                                                    <a href="v1.html">Shop List v1</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="v2.html">Shop List v2</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="v3.html">Shop List v3</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="v4.html">Shop List v4</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="v5.html">Shop List v5</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="v6.html">Shop List v6</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="v7.html">Shop List v7</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="v8.html">Shop List v8</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="v9.html">Shop List v9</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                    <li class="has-submenu">
-                                                        <a href="#" data-submenu="off-blog">Blog</a>
-                                                        <div id="off-blog" class="submenu js-scrollbar">
-                                                            <div class="submenu-header" data-submenu-close="off-blog">
-                                                                <a href="#">Blog</a>
-                                                            </div>
-                                                            <ul class="">
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/blog/blog-v1.html">Blog
-                                                                        v1</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/blog/blog-v2.html">Blog
-                                                                        v2</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/blog/blog-v3.html">Blog
-                                                                        v3</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/blog/blog-single.html">Blog
-                                                                        Single</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                    <li class="has-submenu">
-                                                        <a href="#" data-submenu="off-others">Others</a>
-                                                        <div id="off-others" class="submenu js-scrollbar">
-                                                            <div class="submenu-header"
-                                                                data-submenu-close="off-others">
-                                                                <a href="#">Others</a>
-                                                            </div>
-                                                            <ul class="">
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/others/404.html">404</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/others/about.html">About
-                                                                        Us</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/others/authors-list.html">Authors
-                                                                        List</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/others/authors-single.html">Authors
-                                                                        Single</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/others/coming-soon.html">Coming
-                                                                        Soon</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/others/contact.html">Contact
-                                                                        Us</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/others/faq.html">FAQ</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/others/pricing-table.html">Pricing
-                                                                        Table</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/others/terms-conditions.html">Terms
-                                                                        Conditions</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                    <li class="px-5">
-                                                        <a href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/documentation/index.html"
-                                                            class="btn btn-primary mb-3 mb-md-0 mb-xl-3 mt-4 font-size-2 btn-block">Documentation</a>
-                                                    </li>
-                                                    <li class="px-5 mb-4">
-                                                        <a href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/starter/index.html"
-                                                            class="btn btn-secondary font-size-2 btn-block mb-2">Starter</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="#" data-submenu="art-photo">Arts & Photography</a>
-                                            <div id="art-photo" class="submenu">
-                                                <div class="submenu-header" data-submenu-close="art-photo">
-                                                    <a href="#">Arts & Photography</a>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">Architecture</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Business of Art</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Collections, Catalogs & Exhibitions</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Decorative Arts & Design</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Drawing</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Fashion</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Graphic Design</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="#" data-submenu="biography">Biographies & Memoirs</a>
-                                            <div id="biography" class="submenu">
-                                                <div class="submenu-header" data-submenu-close="biography">
-                                                    <a href="#">Biographies & Memoirs</a>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">Istanbul</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Mardin</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Amed</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="#" data-submenu="children">Children's Books</a>
-                                            <div id="children" class="submenu">
-                                                <div class="submenu-header" data-submenu-close="children">
-                                                    <a href="#">Children's Books</a>
-                                                </div>
-                                                <ul>
-                                                    <li class="has-submenu">
-                                                        <a href="#" data-submenu="electronics">Electronics</a>
-                                                        <div id="electronics" class="submenu js-scrollbar">
-                                                            <div class="submenu-header"
-                                                                data-submenu-close="electronics">
-                                                                <a href="#">Electronics</a>
-                                                            </div>
-                                                            <ul class="">
-                                                                <li>
-                                                                    <a href="#">Camera & Photo</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Home Audio</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Tv & Video</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Computers & Accessories</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Car & Vehicle Electronics</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Portable Audio & Video</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Headphones</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Accessories & Supplies</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Video Projectors</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Office Electronics</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Wearable Technology</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#">Service Plans</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Books</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Video Games</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Computers</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="#" data-submenu="computers">Computers & Technology</a>
-                                            <div id="computers" class="submenu">
-                                                <div class="submenu-header" data-submenu-close="computers">
-                                                    <a href="#">Computers & Technology</a>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">Istanbul</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Mardin</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Amed</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="#" data-submenu="cookbook">Cookbooks, Food & Wine</a>
-                                            <div id="cookbook" class="submenu">
-                                                <div class="submenu-header" data-submenu-close="cookbook">
-                                                    <a href="#">Cookbooks, Food & Wine</a>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">Istanbul</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Mardin</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Amed</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="#" data-submenu="sciencemath">Education & Teaching</a>
-                                            <div id="sciencemath" class="submenu">
-                                                <div class="submenu-header" data-submenu-close="sciencemath">
-                                                    <a href="#">Education & Teaching</a>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">Istanbul</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Mardin</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Amed</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="#" data-submenu="health">Health, Fitness & Dieting</a>
-                                            <div id="health" class="submenu">
-                                                <div class="submenu-header" data-submenu-close="health">
-                                                    <a href="#">Health, Fitness & Dieting</a>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">Istanbul</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Mardin</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Amed</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="#" data-submenu="history">History</a>
-                                            <div id="history" class="submenu">
-                                                <div class="submenu-header" data-submenu-close="history">
-                                                    <a href="#">History</a>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">Istanbul</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Mardin</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Amed</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="#" data-submenu="romance">Romance</a>
-                                            <div id="romance" class="submenu">
-                                                <div class="submenu-header" data-submenu-close="romance">
-                                                    <a href="#">Romance</a>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">Istanbul</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Mardin</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Amed</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="#" data-submenu="sports">Sports & Outdoors</a>
-                                            <div id="sports" class="submenu">
-                                                <div class="submenu-header" data-submenu-close="sports">
-                                                    <a href="#">Sports & Outdoors</a>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">Istanbul</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Mardin</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Amed</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="#" data-submenu="travel">Travel</a>
-                                            <div id="travel" class="submenu">
-                                                <div class="submenu-header" data-submenu-close="travel">
-                                                    <a href="#">Travel</a>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">Istanbul</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Mardin</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">Amed</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
+                                                        <ul>
+                                                            @php $level=1; @endphp
+                                                                @foreach ($cat->childrenRecursive as $child)
+                                                                    @include('includes.menu', [
+                                                                        'childs' => $child, 'level'=>$level+1
+                                                                    ])
+                                                                @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            @endif
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
@@ -1298,19 +768,6 @@
                                 </ul>
                             </div>
                             <div class="px-4 px-md-5 py-5">
-                                <select class="custom-select mb-4 rounded-0 pl-4 height-4 shadow-none text-dark">
-                                    <option selected>English (United States)</option>
-                                    <option value="1">English (UK)</option>
-                                    <option value="2">Arabic (Saudi Arabia)</option>
-                                    <option value="3">Deutsch</option>
-                                </select>
-                                <select class="custom-select mb-4 rounded-0 pl-4 height-4 shadow-none text-dark">
-                                    <option selected>$ USD</option>
-                                    <option value="1">د.إ AED</option>
-                                    <option value="2">¥ CNY</option>
-                                    <option value="3">€ EUR</option>
-                                </select>
-
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item">
                                         <a class="h-primary pr-2 font-size-2" href="#">

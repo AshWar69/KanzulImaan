@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontController::class, 'index']);
 //Route::view('{slug}','pages.library.qr_read');
 Route::get('books/name={slug}', [ LibraryController::class , 'showBook'])->name('books.name=');
+Route::get('books/category={slug}', [ LibraryController::class , 'showCategoryBooks'])->name('books.category=');
 Route::post('read/book', [ LibraryController::class , 'readBook'])->name('read.book');
 Route::get('Kanzuliman/Bookslibrary', [LibraryController::class , 'index'])->name('Kanzuliman.Bookslibrary');
 

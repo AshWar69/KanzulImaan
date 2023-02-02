@@ -31,6 +31,25 @@ class LibraryController extends Controller
         return view('pages.library.library', compact('company','banners','social','libraries', 'categories','pimage'));
     }
 
+    public function showCategoryBooks($slug)
+    {
+        $company = Company::first();
+        $banners = Banner::inRandomOrder()->get();
+        $social = Social::get();
+        $libraries = Library::paginate(25);
+        $images = BookImage::get();
+        $categories = Category::where('parent_id',0)->get();
+        $cat_books = Library::where('category_id',$slug)->paginate(25);
+        $cat_name = Category::where('id',$slug)->first();
+        $pimage = [];
+        foreach($images as $image){
+            if(!isset($pimage[$image->book_id]))
+            $pimage[$image->book_id] = $image->image;
+        }
+
+        return view('pages.library.category_books', compact('company','cat_name','cat_books','banners','social','libraries', 'categories','pimage'));
+    }
+
     public function showBook($slug)
     {
         $company = Company::first();
