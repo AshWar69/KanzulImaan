@@ -735,26 +735,28 @@
                             <div class="border-bottom">
                                 <div class="zeynep pt-4">
                                     <ul>
+                                        @php $id=1; $slevel=1; @endphp
                                         @foreach ($categories as $cat)
                                             @if ($cat->childrenRecursive->isEmpty())
-                                                <li><a href="{{URL::to('books/category='.$cat->id)}}">{{ $cat->category_name }}</a></li>
+                                                <li><a href="{{URL::to('books/category='.$cat->id)}}" class="py-3">{{ $cat->category_name }}</a></li>
                                             @elseif($cat->childrenRecursive)
-                                                <li class="has-submenu">
-                                                    <a class="catLink" href="{{URL::to('books/category='.$cat->id)}}">{{ $cat->category_name }}</a> <span class="ic text-dark" data-submenu="off-pages"><i class="fa fa-angle-right"></i></span>
-                                                    <div id="off-pages" class="submenu">
-                                                        <div class="submenu-header" data-submenu-close="off-pages">
+                                                <li class="has-submenu py-3">
+                                                    <a class="catLink" href="{{URL::to('books/category='.$cat->id)}}">{{ $cat->category_name }}</a> <span class="ic text-dark" data-submenu="off-pages{{$id}}"><i class="fa fa-angle-right"></i></span>
+                                                    <div id="off-pages{{$id}}" class="submenu">
+                                                        <div class="submenu-header" data-submenu-close="off-pages{{$id}}">
                                                             <a href="#">{{ $cat->category_name }}</a>
                                                         </div>
                                                         <ul>
-                                                            @php $level=1; @endphp
                                                                 @foreach ($cat->childrenRecursive as $child)
                                                                     @include('includes.menu', [
-                                                                        'childs' => $child, 'level'=>$level+1
+                                                                        'childs' => $child, 'slevel'=>$slevel, 'id'=>$id
                                                                     ])
+                                                                    @php $slevel++; @endphp
                                                                 @endforeach
                                                         </ul>
                                                     </div>
                                                 </li>
+                                                @php $id++; @endphp
                                             @endif
                                         @endforeach
                                     </ul>
