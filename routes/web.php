@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontController::class, 'index']);
+Route::get('query-search', [FrontController::class, 'search'])->name('query-search');
+Route::get('search', [FrontController::class, 'searchResult'])->name('book.search');
 //Route::view('{slug}','pages.library.qr_read');
 Route::get('books/name={slug}', [ LibraryController::class , 'showBook'])->name('books.name=');
 Route::get('books/category={slug}', [ LibraryController::class , 'showCategoryBooks'])->name('books.category=');

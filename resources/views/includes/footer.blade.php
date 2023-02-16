@@ -238,6 +238,7 @@
 <script src="{{ asset('front/vendor/multilevel-sliding-mobile-menu/dist/jquery.zeynep.js') }}"></script>
 <script src="{{ asset('front/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js') }}">
 </script>
+{{-- <script src="{{ asset('front/js/typeahead.js') }}"></script> --}}
 
 <script src="{{ asset('front/js/hs.core.js') }}"></script>
 <script src="{{ asset('front/js/components/hs.unfold.js') }}"></script>
@@ -250,7 +251,8 @@
 <script src="{{ asset('front/js/components/hs.onscroll-animation.js') }}"></script>
 <script src="{{ asset('front/js/components/hs.quantity-counter.js') }}"></script>
 <script src="{{ asset('front/js/components/hs.scroll-nav.js') }}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js">
+</script>
 
 <script>
     $(document).on('ready', function() {
@@ -309,6 +311,17 @@
                 zeynep.open();
             }
         });
+    });
+
+    var path = "{{ route('query-search') }}";
+    $('.typeahead').typeahead({
+        source: function(query, process) {
+            return $.get(path, {
+                query: query
+            }, function(data) {
+                return process(data);
+            });
+        }
     });
 </script>
 @yield('scripts')
