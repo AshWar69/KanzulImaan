@@ -139,7 +139,7 @@
     <script>
         $(document).ready(function() {
             setTimeout(function() {
-                self.location = "{{URL::to('QuranStore')}}";
+                self.location = "{{URL::to('Kanzuliman/QuranStore')}}";
             }, 5000);
         });
     </script>
