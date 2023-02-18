@@ -38,7 +38,7 @@ Route::middleware(['auth','ecomm'])->group(function(){
     Route::post('changeQuantity', [EcommController::class, 'changeQuantity'])->name('changeQuantity');
     Route::get('Kanzuliman/Checkout', [EcommController::class, 'viewCheckout']);
     Route::post('PlaceOrder', [EcommController::class, 'placeOrder'])->name('PlaceOrder');
-    Route::get('OrderReceived/order_no={id}', [EcommController::class, 'orderReceived']);
+    Route::get('Kanzuliman/OrderReceived/order_no={id}', [EcommController::class, 'orderReceived']);
 });
 
 Route::prefix('admin')->group(function(){
