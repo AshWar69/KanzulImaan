@@ -729,7 +729,8 @@
                                     <div class="form-row place-order">
                                         <button type="submit"
                                             class="button alt btn btn-dark btn-block rounded-0 py-4">Place
-                                            order</button>
+                                            order
+                                            <span class="loader d-none"></span></button>
                                         {{-- <input type="hidden" id="_wpnonce" name="_wpnonce"
                                             value="926470d564"><input type="hidden" name="_wp_http_referer"
                                             value="/storefront/?wc-ajax=update_order_review"> --}}
@@ -799,6 +800,7 @@
         }
 
         if ($("input[name='payment_method']:checked").val() == "cod") {
+            $('.loader').removeClass('d-none');
             $.ajax({
                 url: "{{ route('PlaceOrder') }}",
                 type: "POST",
@@ -810,6 +812,7 @@
             });
         } else if ($("input[name='payment_method']:checked").val() == "razor_pay") {
             e.preventDefault();
+            $('.loader').removeClass('d-none');
             var options = {
                 "key": "{{ env('RAZOR_KEY') }}", // Enter the Key ID generated from the Dashboard
                 "amount": amount *
