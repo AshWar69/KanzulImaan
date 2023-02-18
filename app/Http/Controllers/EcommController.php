@@ -210,6 +210,7 @@ class EcommController extends Controller
     public function orderReceived($id)
     {
         $company = Company::first();
+        $social = Social::get();
         $id = Crypt::decrypt($id);
         $orders = Order::where('id', $id)->where('user_id', Auth::user()->id)->first();
         $user_details = UserDetail::where('user_id', Auth::user()->id)->first();
