@@ -9,7 +9,7 @@
                     <div class="toolbar row mb-3">
                         <div class="col ml-auto">
                             <div class="dropdown">
-                                <a href="{{ URL::to('AddOrganisation') }}" class="btn btn-primary ml-3" type="button">Add more
+                                <a href="{{ URL::to('admin/AddOrganisation') }}" class="btn btn-primary ml-3" type="button">Add more
                                     +</a>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                             @foreach ($companies as $data)
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td> <a href="{{URL::to('company/edit/'.$data->id)}}" class="text-primary"> <i class="fe fe-edit"></i> </a> </td>
+                                    <td> <a href="{{URL::to('admin/company/edit/'.$data->id)}}" class="text-primary"> <i class="fe fe-edit"></i> </a> </td>
                                     <td>{{ $data->company_name }}</td>
                                     <td>{{ $data->address }}</td>
                                     <td>{{ $data->city }}</td>

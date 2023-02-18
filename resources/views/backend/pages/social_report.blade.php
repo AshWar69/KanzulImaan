@@ -8,7 +8,7 @@
                     <div class="toolbar row mb-3">
                         <div class="col ml-auto">
                             <div class="dropdown">
-                                <a href="{{ URL::to('AddSocialLinks') }}" class="btn btn-primary ml-3" type="button">Add more
+                                <a href="{{ URL::to('admin/AddSocialLinks') }}" class="btn btn-primary ml-3" type="button">Add more
                                     +</a>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                                 <tr>
                                     <td>{{ $i }}</td>
                                     <td>
-                                        <a href="{{URL::to('social/edit/'.$data->id)}}" class="text-primary"> <i class="fe fe-edit"></i> </a>
+                                        <a href="{{URL::to('admin/social/edit/'.$data->id)}}" class="text-primary"> <i class="fe fe-edit"></i> </a>
                                         <a class="text-danger ml-3 del" id='{{ $data->id }}' href="#"> <i class="fe fe-trash"></i> </a>
                                     </td>
                                     <td>{{ $data->platform }}</td>

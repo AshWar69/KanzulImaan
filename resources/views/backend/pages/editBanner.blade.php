@@ -1,14 +1,14 @@
 @extends('backend.layouts.admin')
 @section('content')
 <div class="col-12">
-    <a href="{{ URL::to('ManageBanner') }}" type="button" class="btn mb-2 btn-outline-danger"><span
+    <a href="{{ URL::to('admin/ManageBanner') }}" type="button" class="btn mb-2 btn-outline-danger"><span
             class="fe fe-arrow-left-circle fe-16 mr-2"></span>Back</a>
     <div class="card shadow mb-4">
         <div class="card-header">
             <strong class="card-title">Edit Banner</strong>
         </div>
         <div class="card-body">
-            <form class="needs-validation" novalidate action="{{ route('editBanner') }}" method="POST"
+            <form class="needs-validation" novalidate action="{{ route('admin.editBanner') }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" value="{{$data->id}}">
@@ -60,7 +60,7 @@
                             <option value="AboutUs">About Us</option>
                             <option value="ContactUs">Contact Us</option>
                             <option value="QuranStore">Shop Now</option>
-                            <option value="OurLibrary">Explore Library</option>
+                            <option value="Bookslibrary">Explore Library</option>
                         </select>
                         <div class="invalid-feedback"> Please Fill Up This Field </div>
                         <div class="valid-feedback"> Looks good! </div>

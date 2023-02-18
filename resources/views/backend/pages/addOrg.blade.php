@@ -1,14 +1,14 @@
 @extends('backend.layouts.admin')
 @section('content')
     <div class="col-12">
-        <a href="{{ URL::to('ManageOrganisation') }}" type="button" class="btn mb-2 btn-outline-danger"><span
+        <a href="{{ URL::to('admin/ManageOrganisation') }}" type="button" class="btn mb-2 btn-outline-danger"><span
                 class="fe fe-arrow-left-circle fe-16 mr-2"></span>Back</a>
         <div class="card shadow mb-4">
             <div class="card-header">
                 <strong class="card-title">Add Company Details</strong>
             </div>
             <div class="card-body">
-                <form class="needs-validation" novalidate action="{{route('saveCompany')}}" method="POST" enctype="multipart/form-data">
+                <form class="needs-validation" novalidate action="{{route('admin.saveCompany')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-row">
                         <div class="col-md-6 mb-3">

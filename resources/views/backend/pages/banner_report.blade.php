@@ -8,7 +8,7 @@
                     <div class="toolbar row mb-3">
                         <div class="col ml-auto">
                             <div class="dropdown">
-                                <a href="{{ URL::to('AddBanner') }}" class="btn btn-primary ml-3" type="button">Add more
+                                <a href="{{ URL::to('admin/AddBanner') }}" class="btn btn-primary ml-3" type="button">Add more
                                     +</a>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                                 <tr>
                                     <td>{{ $i }}</td>
                                     <td>
-                                        <a href="{{URL::to('banner/edit/'.$data->id)}}" class="text-primary"> <i class="fe fe-edit"></i> </a>
+                                        <a href="{{URL::to('admin/banner/edit/'.$data->id)}}" class="text-primary"> <i class="fe fe-edit"></i> </a>
                                         <a class="text-danger ml-3 del" id='{{ $data->id }}' href="#"> <i class="fe fe-trash"></i> </a>
                                     </td>
                                     <td> <img src="{{asset('back/images/banner_images/'.$data->image)}}" width="80" class="img-thumbnail"> </td>

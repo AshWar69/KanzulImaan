@@ -34,13 +34,13 @@ class GeneralController extends Controller
             $file = $request->file('image');
 
             $file_name = time() . rand(1, 999) . '.' . $file->getClientOriginalExtension();
-            $path = base_path('public/back/images/company_images/');
+            $path = base_path('back/images/company_images/');
             $file->move($path, $file_name);
 
             $prod->image = $file_name;
 
             if ($prod->save())
-                return redirect('ManageOrganisation');
+                return redirect('admin/ManageOrganisation');
             else
                 return redirect()->back();
         }
@@ -67,13 +67,13 @@ class GeneralController extends Controller
             $file = $request->file('image');
 
             $file_name = time() . rand(1, 999) . '.' . $file->getClientOriginalExtension();
-            $path = base_path('public/back/images/company_images/');
+            $path = base_path('back/images/company_images/');
             $file->move($path, $file_name);
 
             $prod->image = $file_name;
 
             if ($prod->save())
-                return redirect('ManageOrganisation');
+                return redirect('admin/ManageOrganisation');
             else
                 return redirect()->back();
 
@@ -98,13 +98,13 @@ class GeneralController extends Controller
             $file = $request->file('image');
 
             $file_name = time() . rand(1, 999) . '.' . $file->getClientOriginalExtension();
-            $path = base_path('public/back/images/banner_images/');
+            $path = base_path('back/images/banner_images/');
             $file->move($path, $file_name);
 
             $prod->image = $file_name;
 
             if ($prod->save())
-                return redirect('ManageBanner');
+                return redirect('admin/ManageBanner');
             else
                 return redirect()->back();
     }
@@ -127,13 +127,13 @@ class GeneralController extends Controller
             $file = $request->file('image');
 
             $file_name = time() . rand(1, 999) . '.' . $file->getClientOriginalExtension();
-            $path = base_path('public/back/images/banner_images/');
+            $path = base_path('back/images/banner_images/');
             $file->move($path, $file_name);
 
             $prod->image = $file_name;
 
             if ($prod->save())
-                return redirect('ManageBanner');
+                return redirect('admin/ManageBanner');
             else
                 return redirect()->back();
 
@@ -142,7 +142,7 @@ class GeneralController extends Controller
     public function destroyBanner($id)
     {
         $delete = Banner::find($id);
-        unlink(base_path() . '/public/back/images/banner_images/'.$delete->image);
+        unlink(base_path() . '/back/images/banner_images/'.$delete->image);
 
         if ($delete->delete()) {
             echo "Deleted";
@@ -165,7 +165,7 @@ class GeneralController extends Controller
             $prod->link = $request->link;
 
             if ($prod->save())
-                return redirect('ManageSocialPlatform');
+                return redirect('admin/ManageSocialPlatform');
             else
                 return redirect()->back();
     }
@@ -183,7 +183,7 @@ class GeneralController extends Controller
             $prod->link = $request->link;
 
             if ($prod->save())
-                return redirect('ManageSocialPlatform');
+                return redirect('admin/ManageSocialPlatform');
             else
                 return redirect()->back();
 

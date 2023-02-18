@@ -247,7 +247,7 @@ class EcommController extends Controller
 
             foreach ($request->images as $file) {
                 $file_name = time() . rand(1, 999) . '.' . $file->getClientOriginalExtension();
-                $path = base_path('public/back/images/product_images/');
+                $path = base_path('back/images/product_images/');
                 $pimage = new ProductImage();
                 $pimage->pid = $prod->id;
                 $pimage->image = $file_name;
@@ -294,7 +294,7 @@ class EcommController extends Controller
 
         $num = 0;
         foreach ($images as $img) {
-            unlink(base_path() . '/public/back/images/product_images/' . $img->image);
+            unlink(base_path() . '/back/images/product_images/' . $img->image);
             $img->delete();
             $num++;
             echo $num;
