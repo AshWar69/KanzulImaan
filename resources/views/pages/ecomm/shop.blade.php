@@ -818,9 +818,9 @@
                                                     <a href="{{ URL::to('Product/' . $product->slug) }}"
                                                         class="d-block">
                                                         @if (isset($pimage[$product->id]))
-                                                            <img src="{{ asset('back/images/product_images/' . $pimage[$product->id]) }}"
+                                                            <img src="{{ asset('back/images/product_images/' . $pimage[$product->id]) }}" style="width: 785px; height: 200px;"
                                                                 class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                                                                alt="image-description">
+                                                                alt="{{ $product->slug }}">
                                                         @endif
                                                     </a>
                                                 </div>

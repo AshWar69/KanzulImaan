@@ -272,10 +272,10 @@
                                         <div class="woocommerce-loop-product__thumbnail">
                                             @if (isset($pimage[$products->id]))
                                                 <a href="{{ URL::to('Product/' . $product->slug) }}"
-                                                    class="d-block"><img
+                                                    class="d-block"><img  style="width: 485px; height: 200px;"
                                                         src="{{ asset('back/images/product_images/' . $pimage[$products->id]) }}"
                                                         class="img-fluid d-block mx-auto attachment-shop_catalog size-shop_catalog wp-post-image img-fluid"
-                                                        alt="image-description"></a>
+                                                        alt="{{$product->slug}}"></a>
                                             @endif
                                         </div>
                                         <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
