@@ -94,7 +94,7 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="pid" value="{{ $product->id }}">
-                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" name="user_id" value="@if(Auth::check()) {{ Auth::user()->id }} @else 0 @endif">
                                     <label class="form-label font-size-2 font-weight-medium">Quantity</label>
                                     <div class="quantity mb-4 d-flex align-items-center">
                                         <div class="border px-3 w-100">
@@ -631,6 +631,9 @@
         var pid = $("input[name='pid']").val();
         var uid = $("input[name='user_id']").val();
         var quan = $("input[name='quantity']").val();
+        if(uid == 0)
+            self.location="{{URL::to('login')}}";
+        else{
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -658,6 +661,7 @@
                 }
             }
         });
+        }
     });
 
     $(document).ready(function() {

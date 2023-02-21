@@ -815,7 +815,7 @@
                                             <div
                                                 class="woocommerce-LoopProduct-link woocommerce-loop-product__link d-block position-relative">
                                                 <div class="woocommerce-loop-product__thumbnail">
-                                                    <a href="{{ URL::to('Product/id=' . Crypt::encrypt($product->id)) }}"
+                                                    <a href="{{ URL::to('Product/' . $product->slug) }}"
                                                         class="d-block">
                                                         @if (isset($pimage[$product->id]))
                                                             <img src="{{ asset('back/images/product_images/' . $pimage[$product->id]) }}"
@@ -826,12 +826,12 @@
                                                 </div>
                                                 <div class="woocommerce-loop-product__body product__body pt-3 bg-white">
                                                     <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                                            href="{{ URL::to('Product/id=' . Crypt::encrypt($product->id)) }}">{{ $product->language }}</a>
+                                                            href="{{ URL::to('Product/' . $product->slug) }}">{{ $product->language }}</a>
                                                     </div>
                                                     <h2
                                                         class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 text-height-2 crop-text-2 h-dark">
                                                         <a
-                                                            href="{{ URL::to('Product/id=' . Crypt::encrypt($product->id)) }}">{{ $product->product_name }}</a>
+                                                            href="{{ URL::to('Product/' . $product->slug) }}">{{ $product->product_name }}</a>
                                                     </h2>
                                                     {{-- <div class="font-size-2  mb-1 text-truncate"><a
                                                     href="https://demo2.madrasthemes.com/bookworm-html/redesigned-octo-fiesta/html-demo/others/authors-single.html"
@@ -848,7 +848,7 @@
                                                         <input type="hidden" class="pid" name="pid"
                                                             value="{{ $product->id }}">
                                                         <input type="hidden" class="user_id" name="user_id"
-                                                            value="{{ Auth::user()->id }}">
+                                                            value="@if(Auth::check()) {{ Auth::user()->id }} @else 0 @endif">
                                                         <input type="hidden" class="quantity" name="quantity"
                                                             value="1">
                                                     </form>
@@ -886,7 +886,7 @@
                                             <div
                                                 class="woocommerce-LoopProduct-link woocommerce-loop-product__link row position-relative">
                                                 <div class="col-md-auto woocommerce-loop-product__thumbnail mb-3 mb-md-0">
-                                                    <a href="{{ URL::to('Product/id=' . Crypt::encrypt($product->id)) }}"
+                                                    <a href="{{ URL::to('Product/' . $product->slug) }}"
                                                         class="d-block">
                                                         @if (isset($pimage[$product->id]))
                                                             <img src="{{ asset('back/images/product_images/' . $pimage[$product->id]) }}"
@@ -898,11 +898,11 @@
                                                 <div
                                                     class="col-md woocommerce-loop-product__body product__body pt-3 bg-white mb-3 mb-md-0">
                                                     <div class="text-uppercase font-size-1 mb-1 text-truncate"><a
-                                                            href="{{ URL::to('Product/id=' . Crypt::encrypt($product->id)) }}">{{ $product->language }}</a>
+                                                            href="{{ URL::to('Product/' . $product->slug) }}">{{ $product->language }}</a>
                                                     </div>
                                                     <h2
                                                         class="woocommerce-loop-product__title product__title h6 text-lh-md mb-1 crop-text-2 h-dark">
-                                                        <a href="{{ URL::to('Product/id=' . Crypt::encrypt($product->id)) }}"
+                                                        <a href="{{ URL::to('Product/' . $product->slug) }}"
                                                             tabindex="0">{{ $product->product_name }}</a>
                                                     </h2>
                                                     {{-- <div class="font-size-2  mb-2 text-truncate"><a
@@ -917,7 +917,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-auto d-flex align-items-center">
-                                                    <a href="{{ URL::to('Product/id=' . Crypt::encrypt($product->id)) }}"
+                                                    <a href="{{ URL::to('Product/' . $product->slug) }}"
                                                         class="text-uppercase text-dark h-dark font-weight-medium mr-4"
                                                         data-toggle="tooltip" data-placement="right" title=""
                                                         data-original-title="ADD TO CART">

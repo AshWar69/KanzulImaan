@@ -26,11 +26,17 @@ Route::get('books/name={slug}', [ LibraryController::class , 'showBook'])->name(
 Route::get('books/category={slug}', [ LibraryController::class , 'showCategoryBooks'])->name('books.category=');
 Route::post('read/book', [ LibraryController::class , 'readBook'])->name('read.book');
 Route::get('Kanzuliman/Bookslibrary', [LibraryController::class , 'index'])->name('Kanzuliman.Bookslibrary');
+// Library Routes===================================
+
+// Ecommerce Routes===============================
+// Route::get('quran-search', [EcommController::class, 'search'])->name('quran-search');
+// Route::get('productsearch', [EcommController::class, 'searchResult'])->name('product.search');
+Route::get('Kanzuliman/QuranStore', [EcommController::class, 'showQuranStore']);
+Route::get('Product/{id}', [EcommController::class, 'showSingleProduct']);
+// Ecommerce Routes===============================
 
 Auth::routes();
 Route::middleware(['auth','ecomm'])->group(function(){
-    Route::get('Kanzuliman/QuranStore', [EcommController::class, 'showQuranStore']);
-    Route::get('Product/id={id}', [EcommController::class, 'showSingleProduct']);
     Route::get('removeItem/{id}', [EcommController::class, 'removeCartItems']);
     Route::get('Kanzuliman/ViewCart', [EcommController::class, 'viewCart']);
     Route::post('addtocart', [EcommController::class, 'AddToCart'])->name('addtocart');

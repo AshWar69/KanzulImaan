@@ -197,18 +197,18 @@
                         </li>
                     </ul>
                     <div class="site-search ml-xl-0 ml-md-auto w-r-100 my-2 my-xl-0">
-                        <form class="form-inline">
-                            <div class="input-group">
+                        <form class="form-inline" action="{{route('book.search')}}" method="GET">
+                            <div class="input-group" id="the-basics">
                                 <div class="input-group-prepend">
                                     <i
                                         class="glph-icon flaticon-loupe input-group-text py-2d75 bg-white-100 border-white-100"></i>
                                 </div>
                                 <input
-                                    class="form-control bg-white-100 min-width-380 py-2d75 height-4 border-white-100"
-                                    type="search" placeholder="Search for Books by Keyword ..." aria-label="Search">
+                                    class="typeahead form-control bg-white-100 min-width-380 py-2d75 height-4 border-white-100"
+                                    type="search" placeholder="Search for Books by Name ..." aria-label="Search" name="qsearch">
                             </div>
-                            <button class="btn btn-outline-success my-2 my-sm-0 sr-only"
-                                type="submit">Search</button>
+                            {{-- <button class="btn btn-outline-success my-2 my-sm-0 sr-only"
+                                type="submit">Search</button> --}}
                         </form>
                     </div>
                 </div>

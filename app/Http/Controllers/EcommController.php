@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Social;
 use App\Models\UserDetail;
+use Illuminate\Support\Str;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
@@ -27,8 +28,14 @@ class EcommController extends Controller
         $social = Social::get();
         $products = Product::get();
         $img = ProductImage::get();
-        $cartCount = Cart::where('user_id', Auth::user()->id)->count();
-        $cartItems = Cart::join('products', 'carts.product_id', '=', 'products.id')->select('*', 'carts.id as cart_id')->where('carts.user_id', Auth::user()->id)->get();
+        if(Auth::check()){
+            $cartCount = Cart::where('user_id', Auth::user()->id)->count();
+            $cartItems = Cart::join('products', 'carts.product_id', '=', 'products.id')->select('*', 'carts.id as cart_id')->where('carts.user_id', Auth::user()->id)->get();
+        }
+        else{
+            $cartCount = 0;
+            $cartItems = Cart::join('products', 'carts.product_id', '=', 'products.id')->select('*', 'carts.id as cart_id')->where('carts.user_id', 0)->get();
+        }
 
         $pimage = [];
         foreach ($img as $image) {
@@ -39,17 +46,57 @@ class EcommController extends Controller
         return view('pages.ecomm.shop', compact('products', 'pimage', 'cartCount', 'cartItems', 'company','social'));
     }
 
+    public function search(Request $request)
+    {
+        $data = $request->all();
+
+        $query = $data['query'];
+
+        $filter_data = Product::select('product_name')
+                        ->where('product_name', 'LIKE', '%'.$query.'%')
+                        ->get();
+
+        return response()->json($filter_data);
+    }
+
+    public function searchResult(Request $request)
+    {
+        $company = Company::first();
+        $social = Social::get();
+        $products = Product::get();
+        $img = ProductImage::get();
+        $pimage = [];
+        foreach($img as $image){
+            if(!isset($pimage[$image->pid]))
+            $pimage[$image->book_id] = $image->image;
+        }
+
+        $query = Str::slug($request->qsearch);
+        $filter_data = Product::where('slug', $query)->paginate(25);
+
+        //dd($filter_data);
+        return view('pages.library.search_result', compact('company','banners','social','filter_data', 'categories','pimage'));
+        //return response()->json($filter_data);
+    }
+
     public function showSingleProduct($id)
     {
         $company = Company::first();
         $social = Social::get();
-        $id = Crypt::decrypt($id);
-        $product = Product::find($id);
+        //$id = Crypt::decrypt($id);
+        $product = Product::where('slug',$id)->first();
         $images = ProductImage::where('pid', $id)->get();
         $related_products = Product::get();
         $img = ProductImage::get();
-        $cartCount = Cart::where('user_id', Auth::user()->id)->count();
-        $cartItems = Cart::join('products', 'carts.product_id', '=', 'products.id')->select('*', 'carts.id as cart_id')->where('carts.user_id', Auth::user()->id)->get();
+
+        if(Auth::check()){
+            $cartCount = Cart::where('user_id', Auth::user()->id)->count();
+            $cartItems = Cart::join('products', 'carts.product_id', '=', 'products.id')->select('*', 'carts.id as cart_id')->where('carts.user_id', Auth::user()->id)->get();
+        }
+        else{
+            $cartCount = 0;
+            $cartItems = Cart::join('products', 'carts.product_id', '=', 'products.id')->select('*', 'carts.id as cart_id')->where('carts.user_id', 0)->get();
+        }
 
         $pimage = [];
         foreach ($img as $image) {
@@ -239,6 +286,7 @@ class EcommController extends Controller
         $prod->size = $request->size;
         $prod->pages = $request->pages;
         $prod->publication = $request->publication;
+        $prod->slug = Str::slug($request->name);
         $prod->save();
 
         $images = $request->file('images');
@@ -274,6 +322,7 @@ class EcommController extends Controller
     {
         $prod = Product::find($request->id);
         $prod->product_name = $request->name;
+        $prod->slug = Str::slug($request->name);
         $prod->price = $request->price;
         $prod->description = $request->description;
         $prod->format = $request->format;

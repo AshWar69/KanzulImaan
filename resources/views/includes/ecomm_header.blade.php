@@ -22,7 +22,18 @@
         href="{{ asset('front/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}">
 
     <link rel="stylesheet" href="{{ asset('front/css/theme.css') }}">
-
+    <style>
+        .dropdown-menu {
+            min-width: fit-content !important;
+        }
+        .ic{
+            margin-right: 50px !important;
+            float: right;
+        }
+        /* .zeynep ul > li.has-submenu > a::after{
+            content: "" !important;
+        } */
+    </style>
     <style>
         .loader {
   width: 25px;
@@ -151,6 +162,7 @@
                         </ul>
                     </div>
                     <ul class="d-md-none nav mr-md-n3 ml-auto">
+                        @if(Auth::check())
                         <li class="nav-item">
 
                             <a id="sidebarNavToggler9" href="javascript:;" role="button"
@@ -169,8 +181,8 @@
                             </a>
 
                         </li>
+                        @endif
                         <li class="nav-item">
-
                             <a id="sidebarNavToggler1" href="javascript:;" role="button"
                                 class="nav-link link-black-100 position-relative" aria-controls="sidebarContent1"
                                 aria-haspopup="true" aria-expanded="false" data-unfold-event="click"
@@ -190,21 +202,21 @@
 
                         </li>
                     </ul>
-                    <div class="site-search ml-xl-0 ml-md-auto w-r-100 my-2 my-xl-0">
-                        <form class="form-inline">
-                            <div class="input-group">
+                    {{-- <div class="site-search ml-xl-0 ml-md-auto w-r-100 my-2 my-xl-0">
+                        <form class="form-inline" action="" method="GET">
+                            <div class="input-group" id="the-basics">
                                 <div class="input-group-prepend">
                                     <i
                                         class="glph-icon flaticon-loupe input-group-text py-2d75 bg-white-100 border-white-100"></i>
                                 </div>
                                 <input
-                                    class="form-control bg-white-100 min-width-380 py-2d75 height-4 border-white-100"
-                                    type="search" placeholder="Search for Books by Keyword ..." aria-label="Search">
+                                    class="typeahead2 form-control bg-white-100 min-width-380 py-2d75 height-4 border-white-100"
+                                    type="search" placeholder="Search for Books by Name ..." aria-label="Search" name="qsearch">
                             </div>
                             <button class="btn btn-outline-success my-2 my-sm-0 sr-only"
                                 type="submit">Search</button>
                         </form>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
