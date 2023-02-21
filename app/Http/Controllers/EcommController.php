@@ -85,7 +85,7 @@ class EcommController extends Controller
         $social = Social::get();
         //$id = Crypt::decrypt($id);
         $product = Product::where('slug',$id)->first();
-        $images = ProductImage::where('pid', $id)->get();
+        $images = ProductImage::where('pid', $product->id)->get();
         $related_products = Product::get();
         $img = ProductImage::get();
 

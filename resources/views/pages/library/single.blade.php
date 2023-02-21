@@ -136,57 +136,11 @@
                                 Description
                             </a>
                         </li>
-                        <li class="flex-shrink-0 flex-md-shrink-1 nav-item">
-                            <a class="py-2 nav-link font-weight-medium" id="pills-two-example1-tab" data-toggle="pill"
-                                href="#pills-two-example1" role="tab" aria-controls="pills-two-example1"
-                                aria-selected="false">
-                                Product Details
-                            </a>
-                        </li>
                     </ul>
                     <div class="tab-content container" id="pills-tabContent">
                         <div class="woocommerce-Tabs-panel panel col-xl-8 offset-xl-2 entry-content wc-tab tab-pane fade pt-9 show active"
                             id="pills-one-example1" role="tabpanel" aria-labelledby="pills-one-example1-tab">
                             {!! $book->description !!}
-                        </div>
-                        <div class="woocommerce-Tabs-panel panel col-xl-8 offset-xl-2 entry-content wc-tab tab-pane fade pt-9"
-                            id="pills-two-example1" role="tabpanel" aria-labelledby="pills-two-example1-tab">
-
-                            <div class="table-responsive mb-4">
-                                <table class="table table-hover table-borderless">
-                                    <tbody>
-                                        <tr>
-                                            <th class="px-4 px-xl-5">Format: </th>
-                                            <td class="">Paperback | 384 pages</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="px-4 px-xl-5">Dimensions</th>
-                                            <td>9126 x 194 x 28mm | 301g</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="px-4 px-xl-5">Publication date: </th>
-                                            <td>20 Dec 2020</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="px-4 px-xl-5">Publisher:</th>
-                                            <td>Little, Brown Book Group</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="px-4 px-xl-5">Imprint:</th>
-                                            <td>Corsair</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="px-4 px-xl-5">Publication City/Country:</th>
-                                            <td>London, United Kingdom</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="px-4 px-xl-5">Language:</th>
-                                            <td>English</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -214,7 +168,7 @@
                 <section class="space-bottom-3">
                     <div class="container">
                         <header class="mb-5 d-md-flex justify-content-between align-items-center">
-                            <h2 class="font-size-7 mb-3 mb-md-0">Customers Also Considered</h2>
+                            <h2 class="font-size-7 mb-3 mb-md-0">Related Books</h2>
                         </header>
                         <div class="js-slick-carousel products no-gutters border-top border-left border-right"
                             data-arrows-classes="u-slick__arrow u-slick__arrow-centered--y"
@@ -294,25 +248,47 @@
                 name = $('#bookName').text();
 
                 if ($("input[name='lang']").is(':checked')) {
-                    fetch(file, {
-                            body: JSON.stringify(file),
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json; charset=utf-8'
-                            },
-                        })
-                        .then(response => response.blob())
-                        .then(response => {
-                            const blob = new Blob([response], {
-                                type: 'application/pdf'
+                    var link = document.createElement('a');
+                    if (link.download != undefined) {
+                        $('.download').each(function() {
+                            var self = $(this);
+                            self.click(function() {
+                                $('.indicator').show();
+                                var href = self.attr('href');
+                                $.get(href, function(file) {
+                                    var dataURI =
+                                        'data:application/octet-stream;base64,' +
+                                        btoa(file);
+                                    var fname = self.data('filename');
+                                    $('<a>' + fname + '</a>').attr({
+                                        download: fname,
+                                        href: dataURI
+                                    })[0].click();
+                                    $('.indicator').hide();
+                                }, 'binary');
+                                return false;
                             });
-                            const downloadUrl = URL.createObjectURL(blob);
-                            const a = document.createElement("a");
-                            a.href = downloadUrl;
-                            a.download = name + "-" + lang;
-                            document.body.appendChild(a);
-                            a.click();
-                        })
+                        });
+                    }
+                    // fetch(file, {
+                    //         body: JSON.stringify(file),
+                    //         method: 'POST',
+                    //         headers: {
+                    //             'Content-Type': 'application/json; charset=utf-8'
+                    //         },
+                    //     })
+                    //     .then(response => response.blob())
+                    //     .then(response => {
+                    //         const blob = new Blob([response], {
+                    //             type: 'application/pdf'
+                    //         });
+                    //         const downloadUrl = URL.createObjectURL(blob);
+                    //         const a = document.createElement("a");
+                    //         a.href = downloadUrl;
+                    //         a.download = name + "-" + lang;
+                    //         document.body.appendChild(a);
+                    //         a.click();
+                    //     })
                 } else {
                     Swal.fire({
                         title: "Error",
@@ -328,10 +304,11 @@
                 file = $("input[name='lang']:checked").closest('.dfile').find("input[name='file']").val();
 
                 $('#pdffile').removeClass('d-none');
-
+                var cont = "#pspdfkit";
                 if ($("input[name='lang']").is(':checked')) {
+                    PSPDFKit.unload(cont);
                     PSPDFKit.load({
-                            container: "#pspdfkit",
+                            container: cont,
                             document: file, // Add the path to your document here.
                             theme: PSPDFKit.Theme.AUTO
                         })
