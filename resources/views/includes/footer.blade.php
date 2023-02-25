@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-4 mb-6 mb-lg-0">
+                    <div class="col-lg-6 mb-6 mb-lg-0">
                         <div class="pb-6">
                             <a href="{{ URL::to('/') }}" class="d-inline-block mb-5">
                                 <img class="img-fluid flogo"
@@ -168,7 +168,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-lg-2 mb-6 mb-lg-0">
+                    {{-- <div class="col-lg-2 mb-6 mb-lg-0">
                         <h4 class="font-size-3 font-weight-medium mb-2 mb-xl-5 pb-xl-1">Categories</h4>
                         <ul class="list-unstyled mb-0">
                             <li class="pb-2">
@@ -196,7 +196,7 @@
                                     href="#">Romantic Comedy</a>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
