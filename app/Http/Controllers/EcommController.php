@@ -387,6 +387,17 @@ class EcommController extends Controller
             return response()->json(['type'=>'error', 'msg'=> ' Some Error Occured']);
     }
 
+    public function destroyProductImage($id)
+    {
+        $images = ProductImage::find($id);
+        unlink(base_path() . '/back/images/product_images/' . $images->image);
+
+            if ($images->delete()) {
+                echo "Deleted";
+            } else
+                echo "Error Occured";
+    }
+
     public function viewOrder()
     {
         $orders = Order::get();

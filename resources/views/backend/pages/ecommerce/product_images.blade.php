@@ -109,7 +109,7 @@
         });
         $('#ok_button1').click(function() {
             $.ajax({
-                url: "product_image/destroy/" + usid,
+                url: "../product_image/destroy/" + usid,
                 beforeSend: function() {
                     var button = document.getElementById('ok_button1');
                     button.classList.add('delete');

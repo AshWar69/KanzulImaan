@@ -239,6 +239,18 @@ class LibraryController extends Controller
             return view('backend.pages.library.image', compact('id'));
         }
 
+        public function destroyBookImage($id)
+        {
+            echo "inside";
+            $images = BookImage::find($id);
+            unlink(base_path() . '/back/images/library_images/' . $images->image);
+
+                if ($images->delete()) {
+                    echo "Deleted";
+                } else
+                    echo "Error Occured";
+        }
+
         public function storeBookImage(Request $request)
         {
             //dd($request);

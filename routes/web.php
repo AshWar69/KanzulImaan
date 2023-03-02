@@ -81,6 +81,7 @@ Route::prefix('admin')->group(function(){
         Route::get('edit/{id}/product_images', [EcommController::class, 'editProductImages']);
         Route::get('AddProductImage/{id}', [EcommController::class, 'addProductImage'])->name('admin.AddProductImage');
         Route::post('uploadProductImage', [EcommController::class, 'storeProductImage'])->name('admin.uploadProductImage');
+        Route::get('product_image/destroy/{id}', [EcommController::class, 'destroyProductImage']);
         Route::get('ShowOrders', [EcommController::class, 'viewOrder'])->name('admin.ShowOrders');
         Route::get('viewDetail/order_no={id}', [EcommController::class, 'OrderDetails'])->name('admin.viewDetail.order_no');;
         Route::get('ManageOrganisation', [GeneralController::class, 'showCompanies'])->name('admin.ManageOrganasitaion');
