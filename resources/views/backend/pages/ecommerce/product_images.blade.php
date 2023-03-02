@@ -8,7 +8,7 @@
                     <div class="toolbar row mb-3">
                         <div class="col ml-auto">
                             <div class="dropdown">
-                                <a href="{{ URL::to('admin/AddProduct') }}" class="btn btn-primary ml-3" type="button">Add more
+                                <a href="{{ URL::to('admin/AddProductImage/'.$id) }}" class="btn btn-primary ml-3" type="button">Add more
                                     +</a>
                                 {{-- <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Action </button>
                           <div class="dropdown-menu" aria-labelledby="actionMenuButton">
@@ -25,11 +25,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Product_Name</th>
-                                <th>Price</th>
-                                <th>Language</th>
-                                <th>Format</th>
-                                <th>Description</th>
+                                <th>Product_Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -37,17 +33,12 @@
                             @foreach ($products as $data)
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $data->product_name }}</td>
-                                    <td>{{ $data->price }}</td>
-                                    <td>{{ $data->language }}</td>
-                                    <td>{{ $data->format }}</td>
-                                    <td>{{ $data->description }}</td>
+                                    <td><img src="{{ asset('back/images/product_images/'.$data->images) }}"></td>
                                     <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{URL::to('admin/edit/'.$data->id.'/product')}}">Edit</a>
                                             <a class="dropdown-item del" id='{{ $data->id }}' href="#">Remove</a>
                                         </div>
                                     </td>
@@ -71,7 +62,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <h4 align="center" style="margin:0; text-align: justify">Are you sure you want to remove this Product ?
+                    <h4 align="center" style="margin:0; text-align: justify">Are you sure you want to remove this Product Image ?
                     </h4>
                 </div>
                 <div class="modal-footer">
@@ -118,7 +109,7 @@
         });
         $('#ok_button1').click(function() {
             $.ajax({
-                url: "product/destroy/" + usid,
+                url: "product_image/destroy/" + usid,
                 beforeSend: function() {
                     var button = document.getElementById('ok_button1');
                     button.classList.add('delete');

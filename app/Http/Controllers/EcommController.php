@@ -357,6 +357,36 @@ class EcommController extends Controller
             echo "Error Occured";
     }
 
+    public function editProductImages($id)
+    {
+        $products = ProductImage::where('pid',$id)->get();
+        $i=1;
+        return view('backend.pages.ecommerce.product_images', compact('products','id','i'));
+    }
+
+    public function addProductImage($id)
+    {
+        return view('backend.pages.ecommerce.image', compact('id'));
+    }
+
+    public function storeProductImage(Request $request)
+    {
+        //dd($request);
+        $lib = new ProductImage();
+        $lib->pid = $request->id;
+        $file = $request->file('file');
+
+        $file_name = time() . rand(1, 999) . '.' . $file->getClientOriginalExtension();
+        $path = base_path('back/images/product_images/');
+        $file->move($path, $file_name);
+        $lib->image = $file_name;
+
+        if($lib->save())
+            return response()->json(['type'=>'success', 'msg'=> ' Product Image Saved Successfully']);
+        else
+            return response()->json(['type'=>'error', 'msg'=> ' Some Error Occured']);
+    }
+
     public function viewOrder()
     {
         $orders = Order::get();
